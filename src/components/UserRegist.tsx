@@ -7,7 +7,7 @@ type UserRegistFormInput = {
   password: string;
   age: number;
   birthday: string;
-  address: string;
+  users_address: string;
 };
 
 export const UserRegist = () => {
@@ -104,12 +104,12 @@ export const UserRegist = () => {
         <label>住所</label>
         <input
           type="text"
-          {...register("address", {
+          {...register("users_address", {
             required: "住所は必須入力です",
           })}
         />
-        {errors.address && (
-          <p className="error_message">{errors.address.message}</p>
+        {errors.users_address && (
+          <p className="error_message">{errors.users_address.message}</p>
         )}
         <br></br>
         <button type="submit">登録</button>
