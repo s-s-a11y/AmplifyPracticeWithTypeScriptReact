@@ -38,20 +38,23 @@ export const UserRegist = () => {
         body: JSON.stringify(data),
       },
     )
+      // 登録成功のレスポンスが返ってきた場合、「登録しました！」とアラートを表示。
       .then((res) => {
         if (res.ok) {
           alert("登録しました！");
         }
       })
+      //   エラーが起きた場合にはコンソールに登録エラーと表示する。
       .catch((err) => console.error("登録エラー:", err));
   };
 
   return (
     <div>
       <h1>ユーザー登録</h1>
-
+      {/* 入力欄を作成。ボタン押下でhandleSubmitを起動する。 */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>名前</label>
+        {/* 必須入力、30文字以内 */}
         <input
           type="text"
           {...register("user_name", {
@@ -62,10 +65,12 @@ export const UserRegist = () => {
             },
           })}
         />
+        {/* バリデーションエラーをメッセージとして表示。 */}
         {errors.user_name && (
           <p className="error_message">{errors.user_name.message}</p>
         )}
         <label>パスワード</label>
+        {/* 必須入力、30文字以内 */}
         <input
           type="password"
           {...register("password", {
@@ -76,10 +81,12 @@ export const UserRegist = () => {
             },
           })}
         />
+        {/* バリデーションエラーをメッセージとして表示。 */}
         {errors.password && (
           <p className="error_message">{errors.password.message}</p>
         )}
         <label>年齢</label>
+        {/* 必須入力、20歳未満利用禁止 */}
         <input
           type="number"
           {...register("age", {
@@ -90,28 +97,34 @@ export const UserRegist = () => {
             },
           })}
         />
+        {/* バリデーションエラーをメッセージとして表示。 */}
         {errors.age && <p className="error_message">{errors.age.message}</p>}
         <label>誕生日</label>
+        {/* 必須入力 */}
         <input
           type="datetime"
           {...register("birthday", {
             required: "誕生日は必須入力です",
           })}
         />
+        {/* バリデーションエラーをメッセージとして表示。 */}
         {errors.birthday && (
           <p className="error_message">{errors.birthday.message}</p>
         )}
         <label>住所</label>
+        {/* 必須入力 */}
         <input
           type="text"
           {...register("users_address", {
             required: "住所は必須入力です",
           })}
         />
+        {/* バリデーションエラーをメッセージとして表示。 */}
         {errors.users_address && (
           <p className="error_message">{errors.users_address.message}</p>
         )}
         <br></br>
+        {/* ボタン押下でsubmitHundlerへ */}
         <button type="submit">登録</button>
       </form>
     </div>
