@@ -1,5 +1,5 @@
 "use client";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 
 // 登録用のデータをまとめるタイプを作成
 type UserRegistFormInput = {
