@@ -26,12 +26,15 @@ export const UserRegist = () => {
   //   フォームのsubmitを検知してAPIをたたきに行く。
   const onSubmit: SubmitHandler<UserRegistFormInput> = (data) => {
     fetch(
+      // APIGatewayでステージングしたPOSTメソッドのURLを指定
       "https://lyzfi7vcic.execute-api.ap-northeast-1.amazonaws.com/OrderProgramStage/OrderProgram/UserRegist",
       {
         method: "POST",
+        // HeaderにJson形式であることを示す。
         headers: {
           "Content-Type": "application/json",
         },
+        // 入力データをJson形式の文字列に変換して送信。
         body: JSON.stringify(data),
       },
     )
