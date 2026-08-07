@@ -3,7 +3,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 
 // 登録用のデータをまとめるタイプを作成
 type UserRegistFormInput = {
-  userName: string;
+  user_name: string;
   password: string;
   age: number;
   birthday: string;
@@ -54,7 +54,7 @@ export const UserRegist = () => {
         <label>名前</label>
         <input
           type="text"
-          {...register("userName", {
+          {...register("user_name", {
             required: "名前は必須入力です",
             maxLength: {
               value: 30,
@@ -62,8 +62,8 @@ export const UserRegist = () => {
             },
           })}
         />
-        {errors.userName && (
-          <p className="error_message">{errors.userName.message}</p>
+        {errors.user_name && (
+          <p className="error_message">{errors.user_name.message}</p>
         )}
         <label>パスワード</label>
         <input
