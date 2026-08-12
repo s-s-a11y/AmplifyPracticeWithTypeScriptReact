@@ -1,184 +1,258 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
-
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+/* ==========================================
+   1. ベーススタイルのリセットと共通設定
+   ========================================== */
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Noto Sans JP", sans-serif;
+  background-color: #f4f6f9; /* 目に優しい薄いグレー */
+  color: #333333;
+  line-height: 1.6;
 }
 
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
+div {
+  box-sizing: border-box;
 }
 
-#center {
+/* 画面全体のコンテナ（中央寄せ＆余白） */
+main,
+body > div {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* タイトル */
+h1 {
+  font-size: 24px;
+  color: #2c3e50;
+  border-bottom: 2px solid #34495e;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+}
+
+/* ==========================================
+   2. フォーム・入力項目のデザイン
+   ========================================== */
+form {
+  margin-bottom: 30px;
+}
+
+/* 各入力欄の縦並びブロック */
+form > div {
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
 }
 
-#next-steps {
+/* ラベル（書籍名、価格など） */
+label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #4a5568;
+  font-size: 14px;
+}
+
+/* インプットテキスト・ナンバー */
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 16px;
+  border: 1px solid #cbd5e0;
+  border-radius: 4px;
+  background-color: #ffffff;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+/* 入力欄にフォーカスが当たったとき（JavaのEclipseっぽい青枠） */
+input[type="text"]:focus,
+input[type="number"]:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.3);
+}
+
+/* ID入力欄など、幅を少し縮めたい場合の設定 */
+input[name="id"] {
+  max-width: 150px;
+}
+
+/* ==========================================
+   3. ボタン（Button）のデザイン
+   ========================================== */
+button,
+button[type="submit"] {
+  background-color: #3182ce; /* スタンダードなブルー */
+  color: white;
+  padding: 10px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: inline-block;
+}
+
+button:hover {
+  background-color: #2b6cb0;
+}
+
+/* クリアボタン・リセットボタン用の装飾（グレー） */
+button[type="button"],
+button:nth-of-type(2) {
+  background-color: #718096;
+  margin-left: 10px;
+}
+
+button[type="button"]:hover {
+  background-color: #4a5568;
+}
+
+/* ==========================================
+   4. エラーメッセージ（React Hook Form用）
+   ========================================== */
+.error_message {
+  color: #e53e3e; /* 警告の赤 */
+  font-size: 14px;
+  margin: 6px 0 0 0;
+  font-weight: 500;
   display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
+  align-items: center;
 }
 
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
+/* エラーメッセージの頭にプチマークをつける隠し味 */
+.error_message::before {
+  content: "⚠️ ";
+  margin-right: 4px;
+  font-size: 12px;
 }
 
-#next-steps ul {
+/* ==========================================
+   5. リスト（UL/LI）とリンク（Link）
+   ========================================== */
+ul {
   list-style: none;
   padding: 0;
+  margin: 20px 0;
+}
+
+li {
+  background: #f7fafc;
+  margin-bottom: 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  transition:
+    transform 0.1s,
+    background-color 0.2s;
+}
+
+li:hover {
+  background-color: #edf2f7;
+  transform: translateX(4px); /* ホバー時に少し右に動く */
+}
+
+/* リスト内のリンク */
+li a {
+  display: block;
+  padding: 14px;
+  color: #2d3748;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* 画面下部のナビゲーションリンク（登録・更新・削除・一覧など） */
+a {
+  color: #3182ce;
+  text-decoration: none;
+  font-weight: bold;
+  margin-right: 15px;
+  font-size: 15px;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #2b6cb0;
+}
+
+/* ==========================================
+   共通ヘッダー（Header）のスタイル
+   ========================================== */
+
+/* ヘッダー全体の大枠 */
+.app-header {
   display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
+  justify-content: space-between; /* タイトルとナビゲーションを左右に振り分ける */
+  align-items: center; /* 上下中央揃え */
+  padding: 15px 30px;
+  background-color: #2c3e50; /* 落ち着いたダークネイビー */
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 下部にうっすら影をつける */
+  margin-bottom: 30px; /* 下のコンテンツとの隙間 */
 }
 
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
+/* アプリのタイトル（左側） */
+.app-header-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
 }
 
-.ticks {
-  position: relative;
-  width: 100%;
+.app-header-title a {
+  color: #ffffff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
+/* ナビゲーションリンク（右側） */
+.app-header-nav {
+  display: flex;
+  gap: 20px; /* リンク同士の間隔 */
+  align-items: center;
+}
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
-  }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
-  }
+/* ヘッダー内の全てのリンクの共通リセット */
+.app-header a {
+  text-decoration: none; /* 下線を消す */
+  transition: all 0.2s ease; /* マウスを乗せた時のアニメーションを滑らかに */
+}
+
+/* ナビゲーションリンクの文字（通常時） */
+.app-header-nav-link {
+  color: #e2e8f0; /* 明るいグレー */
+  font-size: 15px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+/* ナビゲーションリンク（マウスを乗せた時） */
+.app-header-nav-link:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1); /* ほんのり背景を白く光らせる */
+}
+
+/* ログインボタン（ちょっと目立たせるアクセントカラー） */
+.app-header-login-btn {
+  color: #2c3e50 !important; /* 文字色はネイビー */
+  background-color: #ecc94b; /* 鮮やかなマスタードイエロー */
+  font-weight: bold;
+  font-size: 14px;
+  padding: 6px 16px;
+  border-radius: 20px; /* 丸みを持たせてボタンっぽく */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* ログインボタン（マウスを乗せた時） */
+.app-header-login-btn:hover {
+  background-color: #d69e2e; /* 少し濃い黄色にして「押せる感」を出す */
+  transform: translateY(-1px); /* ほんの1ピクセル上に浮かすニクい演出 */
 }
