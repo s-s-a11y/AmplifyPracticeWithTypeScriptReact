@@ -19,6 +19,7 @@ h1 {
 form {
   margin-bottom: 30px;
   border: 1px solid #2b6cb0;
+  padding: 10px;
 }
 
 /* ラベル（書籍名、価格など） */
@@ -47,7 +48,7 @@ input {
   transition:
     border-color 0.2s,
     box-shadow 0.2s;
-  display: inline-block;
+  display: inline;
 }
 
 /* 入力欄にフォーカスが当たったとき */
