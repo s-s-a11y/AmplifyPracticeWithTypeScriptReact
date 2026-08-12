@@ -1,40 +1,16 @@
-/* ==========================================
-   1. ベーススタイルのリセットと共通設定
-   ========================================== */
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
-    Arial, "Noto Sans JP", sans-serif;
-  background-color: #f4f6f9; /* 目に優しい薄いグレー */
-  color: #333333;
-  line-height: 1.6;
-}
-
-div {
-  box-sizing: border-box;
-}
-
-/* 画面全体のコンテナ（中央寄せ＆余白） */
-main,
-body > div {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 30px;
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
-
 /* タイトル */
 h1 {
+  /* 文字の大きさ */
   font-size: 24px;
+  /* 文字色 */
   color: #2c3e50;
+  /* タイトル下線の設定 */
   border-bottom: 2px solid #34495e;
+  /* 要素の内側下部に余白 */
   padding-bottom: 10px;
+  /* 要素の外側下部に余白 */
   margin-bottom: 30px;
+  border: 1px solid #2b6cb0;
 }
 
 /* ==========================================
@@ -44,53 +20,51 @@ form {
   margin-bottom: 30px;
 }
 
-/* 各入力欄の縦並びブロック */
-form > div {
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-}
-
 /* ラベル（書籍名、価格など） */
 label {
+  /* 太字に設定 */
   font-weight: bold;
   margin-bottom: 8px;
   color: #4a5568;
   font-size: 14px;
 }
 
-/* インプットテキスト・ナンバー */
+/* インプットテキスト・ナンバー属性の設定 */
 input[type="text"],
 input[type="number"] {
-  width: 100%;
+  /* 横幅の決定 */
+  width: 250px;
+  /* 内側の余白(上下、左右) */
   padding: 10px 14px;
   font-size: 16px;
+  /* 要素全体のボーダーライン設定 */
   border: 1px solid #cbd5e0;
+  /* ボーダーラインの角の丸み */
   border-radius: 4px;
+  /* 背景色 */
   background-color: #ffffff;
+  /* 要素のスタイルが変化するときに何秒かけるか */
   transition:
     border-color 0.2s,
     box-shadow 0.2s;
 }
 
-/* 入力欄にフォーカスが当たったとき（JavaのEclipseっぽい青枠） */
+/* 入力欄にフォーカスが当たったとき */
 input[type="text"]:focus,
 input[type="number"]:focus {
+  /* 要素の外側に輪郭線を表示しない */
   outline: none;
+  /* 輪郭線のカラー設定 */
   border-color: #3182ce;
+  /* 輪郭線にぼやけた影を追加 */
   box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.3);
-}
-
-/* ID入力欄など、幅を少し縮めたい場合の設定 */
-input[name="id"] {
-  max-width: 150px;
 }
 
 /* ==========================================
    3. ボタン（Button）のデザイン
    ========================================== */
-button,
-button[type="submit"] {
+button {
+  /* 背景色を設定 */
   background-color: #3182ce; /* スタンダードなブルー */
   color: white;
   padding: 10px 24px;
@@ -98,24 +72,13 @@ button[type="submit"] {
   font-weight: bold;
   border: none;
   border-radius: 4px;
+  /* マウスカーソルが重なった際に手の形にする */
   cursor: pointer;
   transition: background-color 0.2s;
-  display: inline-block;
 }
 
 button:hover {
   background-color: #2b6cb0;
-}
-
-/* クリアボタン・リセットボタン用の装飾（グレー） */
-button[type="button"],
-button:nth-of-type(2) {
-  background-color: #718096;
-  margin-left: 10px;
-}
-
-button[type="button"]:hover {
-  background-color: #4a5568;
 }
 
 /* ==========================================
@@ -128,13 +91,6 @@ button[type="button"]:hover {
   font-weight: 500;
   display: flex;
   align-items: center;
-}
-
-/* エラーメッセージの頭にプチマークをつける隠し味 */
-.error_message::before {
-  content: "⚠️ ";
-  margin-right: 4px;
-  font-size: 12px;
 }
 
 /* ==========================================
@@ -168,91 +124,4 @@ li a {
   color: #2d3748;
   text-decoration: none;
   font-weight: 500;
-}
-
-/* 画面下部のナビゲーションリンク（登録・更新・削除・一覧など） */
-a {
-  color: #3182ce;
-  text-decoration: none;
-  font-weight: bold;
-  margin-right: 15px;
-  font-size: 15px;
-}
-
-a:hover {
-  text-decoration: underline;
-  color: #2b6cb0;
-}
-
-/* ==========================================
-   共通ヘッダー（Header）のスタイル
-   ========================================== */
-
-/* ヘッダー全体の大枠 */
-.app-header {
-  display: flex;
-  justify-content: space-between; /* タイトルとナビゲーションを左右に振り分ける */
-  align-items: center; /* 上下中央揃え */
-  padding: 15px 30px;
-  background-color: #2c3e50; /* 落ち着いたダークネイビー */
-  color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 下部にうっすら影をつける */
-  margin-bottom: 30px; /* 下のコンテンツとの隙間 */
-}
-
-/* アプリのタイトル（左側） */
-.app-header-title {
-  margin: 0;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.app-header-title a {
-  color: #ffffff;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-/* ナビゲーションリンク（右側） */
-.app-header-nav {
-  display: flex;
-  gap: 20px; /* リンク同士の間隔 */
-  align-items: center;
-}
-
-/* ヘッダー内の全てのリンクの共通リセット */
-.app-header a {
-  text-decoration: none; /* 下線を消す */
-  transition: all 0.2s ease; /* マウスを乗せた時のアニメーションを滑らかに */
-}
-
-/* ナビゲーションリンクの文字（通常時） */
-.app-header-nav-link {
-  color: #e2e8f0; /* 明るいグレー */
-  font-size: 15px;
-  font-weight: 500;
-  padding: 6px 12px;
-  border-radius: 4px;
-}
-
-/* ナビゲーションリンク（マウスを乗せた時） */
-.app-header-nav-link:hover {
-  color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.1); /* ほんのり背景を白く光らせる */
-}
-
-/* ログインボタン（ちょっと目立たせるアクセントカラー） */
-.app-header-login-btn {
-  color: #2c3e50 !important; /* 文字色はネイビー */
-  background-color: #ecc94b; /* 鮮やかなマスタードイエロー */
-  font-weight: bold;
-  font-size: 14px;
-  padding: 6px 16px;
-  border-radius: 20px; /* 丸みを持たせてボタンっぽく */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-}
-
-/* ログインボタン（マウスを乗せた時） */
-.app-header-login-btn:hover {
-  background-color: #d69e2e; /* 少し濃い黄色にして「押せる感」を出す */
-  transform: translateY(-1px); /* ほんの1ピクセル上に浮かすニクい演出 */
 }

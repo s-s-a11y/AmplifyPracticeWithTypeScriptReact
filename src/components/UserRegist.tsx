@@ -49,7 +49,7 @@ export const UserRegist = () => {
   };
 
   return (
-    <div>
+    <div className="user_regist">
       <h1>ユーザー登録</h1>
       {/* 入力欄を作成。ボタン押下でhandleSubmitを起動する。 */}
       <form onSubmit={handleSubmit(onSubmit)}>
