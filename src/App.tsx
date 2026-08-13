@@ -12,20 +12,20 @@ function App() {
       case "login":
         return <Login />;
     }
-    return (
-      <>
-        <section id="center">
-          <nav>
-            <button onClick={() => setCurrentView("login")}>ログイン</button> |{" "}
-            <button onClick={() => setCurrentView("userRegist")}>
-              新規ユーザー登録
-            </button>{" "}
-          </nav>
-        </section>
-        <div className="content-area">{renderView()}</div>
-      </>
-    );
   };
+  return (
+    <>
+      <section id="center">
+        <nav>
+          <button onClick={() => setCurrentView("login")}>ログイン</button> |{" "}
+          <button onClick={() => setCurrentView("userRegist")}>
+            新規ユーザー登録
+          </button>{" "}
+        </nav>
+      </section>
+      <div className="content-area">{renderView()}</div>
+    </>
+  );
 }
 
 export default App;
