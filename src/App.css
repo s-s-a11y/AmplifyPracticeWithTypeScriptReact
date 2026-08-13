@@ -24,7 +24,7 @@ form {
   text-align: center;
 }
 
-/* ラベル（書籍名、価格など） */
+/* ラベル */
 label {
   /* 太字に設定 */
   font-weight: bold;
@@ -32,6 +32,9 @@ label {
   margin-right: 10px;
   color: #4a5568;
   font-size: 14px;
+  display: inline-block;
+  width: 80px;
+  text-align: center;
 }
 
 /* インプットテキスト・ナンバー属性の設定 */
