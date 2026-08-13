@@ -28,7 +28,7 @@ export const Home = () => {
     )
       .then((res) => res.json())
       .then((data) => setSakes(data));
-  });
+  }, []);
   return (
     <div className="Home">
       <h1>商品一覧</h1>
