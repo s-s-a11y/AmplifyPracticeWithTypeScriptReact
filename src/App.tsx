@@ -2,6 +2,7 @@ import { UserRegist } from "./components/UserRegist";
 import { useState } from "react";
 import "./App.css";
 import { Login } from "./components/Login";
+import { Home } from "./components/Home";
 
 function App() {
   const [currentView, setCurrentView] = useState<string>("home");
@@ -11,6 +12,8 @@ function App() {
         return <UserRegist />;
       case "login":
         return <Login />;
+      case "home":
+        return <Home />;
     }
   };
   return (
@@ -21,6 +24,7 @@ function App() {
           <button onClick={() => setCurrentView("userRegist")}>
             新規ユーザー登録
           </button>{" "}
+          <button onClick={() => setCurrentView("home")}>HOME</button>{" "}
         </nav>
       </section>
       <div className="content-area">{renderView()}</div>
