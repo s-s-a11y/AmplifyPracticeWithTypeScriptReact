@@ -65,6 +65,7 @@ export const UserRegist = () => {
             },
           })}
         />
+        <br />
         {/* バリデーションエラーをメッセージとして表示。 */}
         {errors.user_name && (
           <p className="error_message">{errors.user_name.message}</p>
@@ -81,6 +82,7 @@ export const UserRegist = () => {
             },
           })}
         />
+        <br />
         {/* バリデーションエラーをメッセージとして表示。 */}
         {errors.password && (
           <p className="error_message">{errors.password.message}</p>
@@ -97,6 +99,7 @@ export const UserRegist = () => {
             },
           })}
         />
+        <br />
         {/* バリデーションエラーをメッセージとして表示。 */}
         {errors.age && <p className="error_message">{errors.age.message}</p>}
         <label>誕生日</label>
@@ -107,6 +110,7 @@ export const UserRegist = () => {
             required: "誕生日は必須入力です",
           })}
         />
+        <br />
         {/* バリデーションエラーをメッセージとして表示。 */}
         {errors.birthday && (
           <p className="error_message">{errors.birthday.message}</p>
@@ -119,6 +123,7 @@ export const UserRegist = () => {
             required: "住所は必須入力です",
           })}
         />
+        <br />
         {/* バリデーションエラーをメッセージとして表示。 */}
         {errors.users_address && (
           <p className="error_message">{errors.users_address.message}</p>
