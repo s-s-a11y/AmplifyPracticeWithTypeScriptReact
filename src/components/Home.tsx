@@ -18,6 +18,13 @@ export const Home = () => {
   useEffect(() => {
     fetch(
       "https://lyzfi7vcic.execute-api.ap-northeast-1.amazonaws.com/OrderProgramStage/OrderProgram/GetSakeList",
+      {
+        method: "GET",
+        // HeaderにJson形式であることを示す。
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
     )
       .then((res) => res.json())
       .then((data) => setSakes(data));

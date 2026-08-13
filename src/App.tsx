@@ -23,7 +23,8 @@ function App() {
           <button onClick={() => setCurrentView("login")}>ログイン</button> |{" "}
           <button onClick={() => setCurrentView("userRegist")}>
             新規ユーザー登録
-          </button>{" "}
+          </button>
+          {" | "}
           <button onClick={() => setCurrentView("home")}>HOME</button>{" "}
         </nav>
       </section>
