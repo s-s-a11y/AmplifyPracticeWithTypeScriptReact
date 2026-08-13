@@ -20,6 +20,7 @@ form {
   margin-bottom: 30px;
   border: 1px solid #2b6cb0;
   padding: 10px;
+  text-align: center;
 }
 
 /* ラベル（書籍名、価格など） */
