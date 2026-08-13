@@ -20,6 +20,7 @@ form {
   margin-bottom: 30px;
   border: 1px solid #2b6cb0;
   padding: 10px;
+  /* 子要素を中央ぞろえに */
   text-align: center;
 }
 
@@ -28,6 +29,7 @@ label {
   /* 太字に設定 */
   font-weight: bold;
   margin-bottom: 8px;
+  margin-right: 10px;
   color: #4a5568;
   font-size: 14px;
 }
@@ -50,6 +52,7 @@ input {
     border-color 0.2s,
     box-shadow 0.2s;
   display: inline;
+  margin: 10px;
 }
 
 /* 入力欄にフォーカスが当たったとき */
