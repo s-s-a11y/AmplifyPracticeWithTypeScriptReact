@@ -37,7 +37,7 @@ export const Home = () => {
         {/* 表示用に酒の配列を解体 */}
         {sakes.map((sakes) => (
           <tr key={sakes.sakeId}>
-            // 酒IDを基準にリスト表示
+            {/* // 酒IDを基準にリスト表示 */}
             <td>
               <span>{sakes.name}</span> -
             </td>
