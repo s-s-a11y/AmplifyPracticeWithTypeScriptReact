@@ -28,7 +28,7 @@ export const Home = () => {
   return (
     <div className="Home">
       <h1>商品一覧</h1>
-      <table>
+      <table border={4}>
         <tr>
           <th>酒名</th>
           <th>価格</th>
