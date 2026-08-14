@@ -39,7 +39,7 @@ export const Home = () => {
           <tr key={sakes.sakeId}>
             {/* // 酒IDを基準にリスト表示 */}
             <td>
-              <span>{sakes.name}</span> -
+              <span>{sakes.name}</span>
             </td>
             <td>
               <span>{sakes.price.toLocaleString()}円</span>
@@ -49,7 +49,6 @@ export const Home = () => {
                 {/* 文字列化して表示 */}
                 <button>カートに追加</button>
               </span>{" "}
-              -
             </td>
           </tr>
         ))}
