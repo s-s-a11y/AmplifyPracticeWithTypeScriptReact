@@ -136,6 +136,6 @@ li a {
 }
 
 table {
-  text-align: center;
+  margin: 0 auto;
   border-color: #e53e3e;
 }
