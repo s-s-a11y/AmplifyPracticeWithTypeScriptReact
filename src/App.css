@@ -134,3 +134,8 @@ li a {
   text-decoration: none;
   font-weight: 500;
 }
+
+table {
+  text-align: center;
+  border-color: #e53e3e;
+}
