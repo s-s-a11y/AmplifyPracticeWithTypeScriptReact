@@ -6,7 +6,7 @@ import { Login } from "./components/Login";
 import { Home } from "./components/Home";
 
 function App() {
-  const [currentView, setCurrentView] = useState<string>("home");
+  const [currentView, setCurrentView] = useState<string>("login");
   const [loginUserName, setLoginUserName] = useState<string | null>(null);
 
   useEffect(() => {
