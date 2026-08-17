@@ -37,7 +37,9 @@ export const Login = () => {
     )
       // ログイン成功のレスポンスが返ってきた場合、「ログイン成功！」とアラートを表示。
       .then((res) => {
-        if (res.ok) {
+        if (!res.ok) {
+          alert("ログイン失敗！");
+        } else {
           alert("ログイン成功！");
         }
         return res.json();
