@@ -26,7 +26,7 @@ export const Home = () => {
       .then((data) => setSakes(data));
   }, []);
 
-  const handleClick = (sakeId: number) => {};
+  //   const handleClick = (sakeId: number) => {};
 
   return (
     <div className="Home">
