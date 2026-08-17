@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Cart } from "./Cart";
 
 // 表示するための酒テンプレート
 type Sake = {
@@ -42,7 +41,7 @@ export const Home = () => {
   const handleGoCart = () => {
     // cartItemsをjson化してsessionStorageに格納。
     sessionStorage.setItem("cart", JSON.stringify(cartItems));
-    return <Cart />;
+    window.location.reload();
   };
 
   //   入力された商品ごとの数量の更新処理

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { Login } from "./components/Login";
 import { Home } from "./components/Home";
+import { Cart } from "./components/Cart";
 
 function App() {
   const [currentView, setCurrentView] = useState<string>("login");
@@ -11,11 +12,16 @@ function App() {
 
   useEffect(() => {
     const loginUser = sessionStorage.getItem("loginUserName");
+    const cartItems = sessionStorage.getItem("cart");
     if (loginUser != null) {
-      setCurrentView("home");
+      if (cartItems != null) {
+        setCurrentView("cart");
+      } else {
+        setCurrentView("home");
+      }
     }
     setLoginUserName(loginUser);
-  });
+  }, []);
 
   const renderView = () => {
     switch (currentView) {
@@ -25,6 +31,8 @@ function App() {
         return <Login />;
       case "home":
         return <Home />;
+      case "cart":
+        return <Cart />;
     }
   };
 
