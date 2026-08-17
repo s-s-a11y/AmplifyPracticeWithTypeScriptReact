@@ -73,7 +73,7 @@ export const Home = () => {
               <span>
                 <label>数量：</label>
                 <input
-                  type="number"
+                  //   type="number"
                   value={amount}
                   onChange={(e) => setAmount(Number(e.target.value))}
                 />
