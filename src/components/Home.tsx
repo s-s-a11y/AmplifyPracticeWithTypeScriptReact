@@ -25,6 +25,9 @@ export const Home = () => {
       .then((res) => res.json())
       .then((data) => setSakes(data));
   }, []);
+
+  const handleClick = (sakeId: number) => {};
+
   return (
     <div className="Home">
       <h1>商品一覧</h1>
@@ -34,7 +37,7 @@ export const Home = () => {
           <th>価格</th>
           <th>操作</th>
         </tr>
-        {/* 表示用に酒の配列を解体 */}
+        {/* 表示用に酒の配列を一要素ずつ扱う */}
         {sakes.map((sakes) => (
           <tr key={sakes.sakeId}>
             {/* // 酒IDを基準にリスト表示 */}
