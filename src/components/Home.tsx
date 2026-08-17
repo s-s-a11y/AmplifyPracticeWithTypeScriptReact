@@ -9,7 +9,7 @@ type Sake = {
   price: number;
   amount: 0;
 };
-
+// カートに登録するための注文物テンプレート
 type Order = {
   name: string;
   price: number;
@@ -23,9 +23,9 @@ export const Home = () => {
   // API接続先：OrderAdminAPI/OrderProgram/GetSakeList
   // カートに追加ボタンを要素に追加し、購入処理につなぐ
 
-  //   取得したデータを保存する配列をuseStateで作成
+  //   取得した酒データを保存する配列をuseStateで作成
   const [sakes, setSakes] = useState<Sake[]>([]);
-  const [amount, setAmount] = useState(0);
+  //   カート保存用Order型データ配列
   const [cartItems, setCartItems] = useState<Order[]>([]);
   // 画面表示とともにフェッチ
   useEffect(() => {
@@ -36,13 +36,16 @@ export const Home = () => {
       .then((data) => setSakes(data));
   }, []);
 
+  //   cartItemsに対しての商品追加処理
   const handleAddCart = (name: string, price: number, amount: number) => {
+    // 登録対象のOrder型データの作成
     let preOrder = {
       name: name,
       price: price,
       amount: amount,
       sum_price: amount * price,
     };
+    // Order型配列cartItemsに追加
     setCartItems([...cartItems, preOrder]);
   };
 
@@ -53,7 +56,7 @@ export const Home = () => {
   return (
     <div className="Home">
       <h1>商品一覧</h1>
-      <button onClick={() => handleGoCart()}></button>
+      <button onClick={() => handleGoCart()}>カート画面へ</button>
       <table border={1}>
         <tr>
           <th>酒名</th>
@@ -69,14 +72,13 @@ export const Home = () => {
               <span>{sakes.name}</span>
             </td>
             <td>
-              <span>{sakes.price.toLocaleString()}円</span>
+              <span>{sakes.price}円</span>
             </td>
             <td>
               <span>
                 <input
                   //   type="number"
                   value={sakes.amount}
-                  onChange={(e) => setAmount(Number(e.target.value))}
                 />
               </span>
             </td>
@@ -84,7 +86,9 @@ export const Home = () => {
               <span>
                 {/* 文字列化して表示 */}
                 <button
-                  onClick={() => handleAddCart(sakes.name, sakes.price, amount)}
+                  onClick={() =>
+                    handleAddCart(sakes.name, sakes.price, sakes.amount)
+                  }
                 >
                   カートに追加
                 </button>
