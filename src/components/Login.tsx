@@ -48,6 +48,7 @@ export const Login = () => {
       .then((data) => {
         sessionStorage.setItem("loginUserName", data.user_name);
         sessionStorage.setItem("loginUserId", data.user_id);
+        window.location.reload();
       })
       //   エラーが起きた場合にはコンソールに登録エラーと表示する。
       .catch((err) => console.error("認証エラー:", err));
