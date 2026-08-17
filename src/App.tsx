@@ -11,6 +11,9 @@ function App() {
 
   useEffect(() => {
     const loginUser = sessionStorage.getItem("loginUserName");
+    if (loginUser != null) {
+      setCurrentView("home");
+    }
     setLoginUserName(loginUser);
   });
 
