@@ -9,6 +9,13 @@ type Sake = {
   price: number;
 };
 
+type Order = {
+  name: string;
+  price: number;
+  amount: number;
+  sum_price: number;
+};
+
 export const Home = () => {
   // 商品一覧ページ
   // m-sake2テーブルの全件を取得し表示する。
@@ -17,6 +24,8 @@ export const Home = () => {
 
   //   取得したデータを保存する配列をuseStateで作成
   const [sakes, setSakes] = useState<Sake[]>([]);
+  const [amount, setAmount] = useState<number>(0);
+  const [cartItems, setCartItems] = useState<Order[]>([]);
   // 画面表示とともにフェッチ
   useEffect(() => {
     fetch(
@@ -26,11 +35,24 @@ export const Home = () => {
       .then((data) => setSakes(data));
   }, []);
 
-  //   const handleClick = (sakeId: number) => {};
+  const handleAddCart = (name: string, price: number, amount: number) => {
+    let preOrder = {
+      name: name,
+      price: price,
+      amount: amount,
+      sum_price: amount * price,
+    };
+    setCartItems([...cartItems, preOrder]);
+  };
+
+  const handleGoCart = () => {
+    sessionStorage.setItem("cart", JSON.stringify(cartItems));
+  };
 
   return (
     <div className="Home">
       <h1>商品一覧</h1>
+      <button onClick={() => handleGoCart()}></button>
       <table border={4}>
         <tr>
           <th>酒名</th>
@@ -49,8 +71,21 @@ export const Home = () => {
             </td>
             <td>
               <span>
+                <label>数量：</label>
+                <input
+                  value={amount}
+                  onChange={(e) => setAmount(Number(e.target.value))}
+                />
+              </span>
+            </td>
+            <td>
+              <span>
                 {/* 文字列化して表示 */}
-                <button>カートに追加</button>
+                <button
+                  onClick={() => handleAddCart(sakes.name, sakes.price, amount)}
+                >
+                  カートに追加
+                </button>
               </span>{" "}
             </td>
           </tr>
