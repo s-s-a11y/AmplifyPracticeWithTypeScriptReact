@@ -7,6 +7,7 @@ type Sake = {
   sakeId: number;
   name: string;
   price: number;
+  amount: 0;
 };
 
 type Order = {
@@ -53,10 +54,11 @@ export const Home = () => {
     <div className="Home">
       <h1>商品一覧</h1>
       <button onClick={() => handleGoCart()}></button>
-      <table border={4}>
+      <table border={1}>
         <tr>
           <th>酒名</th>
           <th>価格</th>
+          <th>数量</th>
           <th>操作</th>
         </tr>
         {/* 表示用に酒の配列を一要素ずつ扱う */}
@@ -71,10 +73,9 @@ export const Home = () => {
             </td>
             <td>
               <span>
-                <label>数量：</label>
                 <input
                   //   type="number"
-                  value={amount}
+                  value={sakes.amount}
                   onChange={(e) => setAmount(Number(e.target.value))}
                 />
               </span>
