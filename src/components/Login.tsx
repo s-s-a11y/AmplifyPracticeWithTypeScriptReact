@@ -41,12 +41,12 @@ export const Login = () => {
           alert("ログイン失敗！");
         } else {
           alert("ログイン成功！");
+          return res.json();
         }
-        return res.json();
       })
       //   レスポンスからユーザー名とユーザーIDを取り出してセッションストレージに保存。
       .then((data) => {
-        sessionStorage.setItem("loginUserName", data.userName);
+        sessionStorage.setItem("loginUserName", data.user_name);
         sessionStorage.setItem("loginUserId", data.user_id);
       })
       //   エラーが起きた場合にはコンソールに登録エラーと表示する。
