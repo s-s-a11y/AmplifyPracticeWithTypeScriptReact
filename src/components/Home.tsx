@@ -24,7 +24,7 @@ export const Home = () => {
 
   //   取得したデータを保存する配列をuseStateで作成
   const [sakes, setSakes] = useState<Sake[]>([]);
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState(0);
   const [cartItems, setCartItems] = useState<Order[]>([]);
   // 画面表示とともにフェッチ
   useEffect(() => {
@@ -73,6 +73,7 @@ export const Home = () => {
               <span>
                 <label>数量：</label>
                 <input
+                  type="number"
                   value={amount}
                   onChange={(e) => setAmount(Number(e.target.value))}
                 />
