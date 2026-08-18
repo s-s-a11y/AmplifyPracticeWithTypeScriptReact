@@ -31,6 +31,13 @@ function App() {
     setLoginUserName(loginUser);
   }, []);
 
+  const navigateTo = (view: string) => {
+    // 画面遷移時にセッションストレージの最新ユーザー名を取り直す
+    const user = sessionStorage.getItem("loginUserName");
+    setLoginUserName(user);
+    setCurrentView(view);
+  };
+
   // 描画するコンポーネントを決定する処理
   const renderView = () => {
     // currentViewStateに伴ってSwitch文で切り替え
@@ -42,7 +49,7 @@ function App() {
       case "home":
         return <Home />;
       case "cart":
-        return <Cart />;
+        return <Cart onNavigate={navigateTo} />;
     }
   };
 

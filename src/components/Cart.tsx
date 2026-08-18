@@ -10,7 +10,11 @@ type Order = {
   sum_price: number;
 };
 
-export const Cart = () => {
+type CartProps = {
+  onNavigate: (view: string) => void;
+};
+
+export const Cart = ({ onNavigate }: CartProps) => {
   // カート確認画面
   // カート内に登録した内容と合計金額を表示
   // API接続先：OrderAdminAPI/OrderProgram/RegistOrder
@@ -57,6 +61,7 @@ export const Cart = () => {
   }, []);
 
   //   APIに対してデータを投げて注文履歴を保存する処理
+
   const saveOrder = () => {
     const orders = cartItem;
     const totalPrice = calcTotalPrice();
@@ -83,6 +88,8 @@ export const Cart = () => {
       .then((res) => {
         if (res.ok) {
           alert("購入が完了しました！");
+          sessionStorage.removeItem("cart");
+          onNavigate("home"); // 購入成功したら HOME へ戻る
         }
       })
       //   エラーが起きた場合にはコンソールに登録エラーと表示する。
