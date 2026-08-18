@@ -43,7 +43,7 @@ export const Login = () => {
       // ログイン成功のレスポンスが返ってきた場合、「ログイン成功！」とアラートを表示。
       .then((res) => {
         if (!res.ok) {
-          alert("ログイン失敗！");
+          alert("ユーザーが存在しないか、意図しないエラーが発生しました。");
           setLoading(false);
         }
         return res.json();
@@ -51,13 +51,14 @@ export const Login = () => {
       //   レスポンスからユーザー名とユーザーIDを取り出してセッションストレージに保存。
       .then((data) => {
         if (data.message === "login failure") {
-          alert("ログイン失敗！");
+          alert("パスワードが間違っています");
           setLoading(false);
+        } else {
+          alert("ログイン成功！");
+          sessionStorage.setItem("loginUserName", data.user_name);
+          sessionStorage.setItem("loginUserId", data.user_id);
+          window.location.reload();
         }
-        alert("ログイン成功！");
-        sessionStorage.setItem("loginUserName", data.user_name);
-        sessionStorage.setItem("loginUserId", data.user_id);
-        window.location.reload();
       })
       //   エラーが起きた場合にはコンソールに登録エラーと表示する。
       .catch((err) => console.error("認証エラー:", err));
