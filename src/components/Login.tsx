@@ -54,6 +54,7 @@ export const Login = () => {
           alert("ログイン失敗！");
           setLoading(false);
         }
+        alert("ログイン成功！");
         sessionStorage.setItem("loginUserName", data.user_name);
         sessionStorage.setItem("loginUserId", data.user_id);
         window.location.reload();
