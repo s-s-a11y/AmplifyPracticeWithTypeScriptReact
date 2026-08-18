@@ -20,7 +20,6 @@ export const Cart = () => {
   const [cartItem, setCartItem] = useState<Order[]>([]);
   const [userId, setUserId] = useState<number>(0);
   const [userName, setUserName] = useState<string>("");
-  const [totalPrice, setTotalPrice] = useState<number>();
 
   //   メッセージ格納用State
   const [message, setMessage] = useState<string>("");
@@ -43,7 +42,6 @@ export const Cart = () => {
     // 条件分岐：取得したカート内容が空でない場合、配列に格納。空の場合メッセージを作成。
     if (jsoncart) {
       setCartItem(JSON.parse(jsoncart));
-      setTotalPrice(calcTotalPrice());
     } else {
       setMessage("カートが空です");
     }
@@ -61,6 +59,7 @@ export const Cart = () => {
   //   APIに対してデータを投げて注文履歴を保存する処理
   const saveOrder = () => {
     const orders = cartItem;
+    const totalPrice = calcTotalPrice();
     const RegistOrder = {
       user_id: userId,
       user_name: userName,
@@ -124,7 +123,7 @@ export const Cart = () => {
           <p>{message}</p>
         </div>
       )}
-      <span>合計：{String(totalPrice)}</span>
+      <span>合計：{calcTotalPrice()}</span>
       <br />
       <button onClick={() => saveOrder()}>購入する</button>
     </div>
