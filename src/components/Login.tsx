@@ -44,16 +44,20 @@ export const Login = () => {
       .then((res) => {
         if (!res.ok) {
           alert("ログイン失敗！");
-        } else {
-          alert("ログイン成功！");
-          return res.json();
+          setLoading(false);
         }
+        return res.json();
       })
       //   レスポンスからユーザー名とユーザーIDを取り出してセッションストレージに保存。
       .then((data) => {
-        sessionStorage.setItem("loginUserName", data.user_name);
-        sessionStorage.setItem("loginUserId", data.user_id);
-        window.location.reload();
+        if (!data.message) {
+          sessionStorage.setItem("loginUserName", data.user_name);
+          sessionStorage.setItem("loginUserId", data.user_id);
+          window.location.reload();
+        } else {
+          alert("ログイン失敗！");
+          setLoading(false);
+        }
       })
       //   エラーが起きた場合にはコンソールに登録エラーと表示する。
       .catch((err) => console.error("認証エラー:", err));
