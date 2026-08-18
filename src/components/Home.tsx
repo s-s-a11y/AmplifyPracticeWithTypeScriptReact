@@ -5,12 +5,12 @@ import { useEffect, useState } from "react";
 // 表示するための酒テンプレート
 type Sake = {
   sakeId: number;
-  name: string;
+  product_name: string;
   price: number;
 };
 // カートに登録するための注文物テンプレート
 type Order = {
-  name: string;
+  product_name: string;
   price: number;
   amount: number;
   sum_price: number;
@@ -64,7 +64,7 @@ export const Home = () => {
       // 名前を照合して登録済み商品の配列要素番号をカートから取得
       const existingIndex = prevCart.findIndex(
         // 条件は名称の一致
-        (item) => item.name === sake.name,
+        (item) => item.product_name === sake.product_name,
       );
       //   条件分岐：すでにカートに入っている商品だった場合は数量と合計金額を合算
       if (existingIndex >= 0) {
@@ -85,7 +85,7 @@ export const Home = () => {
         return [
           ...prevCart,
           {
-            name: sake.name,
+            product_name: sake.product_name,
             price: sake.price,
             amount: currentAmount,
             sum_price: currentAmount * sake.price,
@@ -111,7 +111,7 @@ export const Home = () => {
           <tr key={sake.sakeId}>
             {/* // 酒IDを基準にリスト表示 */}
             <td>
-              <span>{sake.name}</span>
+              <span>{sake.product_name}</span>
             </td>
             <td>
               <span>{sake.price}円</span>
