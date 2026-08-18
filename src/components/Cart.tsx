@@ -25,6 +25,17 @@ export const Cart = () => {
   //   メッセージ格納用State
   const [message, setMessage] = useState<string>("");
 
+  //   カート内の合計金額を計算する処理
+  const calcTotalPrice = () => {
+    let total_price = 0;
+    let i = 0;
+    while (i < cartItem.length) {
+      total_price = total_price + cartItem[i].sum_price;
+      i++;
+    }
+    return total_price;
+  };
+
   // 画面表示とともにカート内アイテムとログインしているユーザーに関するデータを取得
   useEffect(() => {
     // セッションストレージからカート内容を取得
@@ -32,6 +43,7 @@ export const Cart = () => {
     // 条件分岐：取得したカート内容が空でない場合、配列に格納。空の場合メッセージを作成。
     if (jsoncart) {
       setCartItem(JSON.parse(jsoncart));
+      setTotalPrice(calcTotalPrice());
     } else {
       setMessage("カートが空です");
     }
@@ -44,19 +56,7 @@ export const Cart = () => {
     if (userName) {
       setUserName(userName);
     }
-    setTotalPrice(calcTotalPrice());
   }, []);
-
-  //   カート内の合計金額を計算する処理
-  const calcTotalPrice = () => {
-    let total_price = 0;
-    let i = 0;
-    while (i < cartItem.length) {
-      total_price = total_price + cartItem[i].sum_price;
-      i++;
-    }
-    return total_price;
-  };
 
   //   APIに対してデータを投げて注文履歴を保存する処理
   const saveOrder = () => {
