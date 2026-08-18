@@ -20,7 +20,7 @@ export const Cart = () => {
   const [cartItem, setCartItem] = useState<Order[]>([]);
   const [userId, setUserId] = useState<number>(0);
   const [userName, setUserName] = useState<string>("");
-  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [totalPrice, setTotalPrice] = useState<number>();
 
   //   メッセージ格納用State
   const [message, setMessage] = useState<string>("");
@@ -124,7 +124,8 @@ export const Cart = () => {
           <p>{message}</p>
         </div>
       )}
-      <span>合計：{totalPrice}</span>
+      <span>合計：{String(totalPrice)}</span>
+      <br />
       <button onClick={() => saveOrder()}>購入する</button>
     </div>
   );
