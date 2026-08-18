@@ -45,8 +45,9 @@ export const Login = () => {
         if (!res.ok) {
           alert("ユーザーが存在しないか、意図しないエラーが発生しました。");
           setLoading(false);
+        } else {
+          return res.json();
         }
-        return res.json();
       })
       //   レスポンスからユーザー名とユーザーIDを取り出してセッションストレージに保存。
       .then((data) => {
