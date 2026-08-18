@@ -53,11 +53,10 @@ export const Login = () => {
         if (data.message === "login failure") {
           alert("ログイン失敗！");
           setLoading(false);
-        } else {
-          sessionStorage.setItem("loginUserName", data.user_name);
-          sessionStorage.setItem("loginUserId", data.user_id);
-          window.location.reload();
         }
+        sessionStorage.setItem("loginUserName", data.user_name);
+        sessionStorage.setItem("loginUserId", data.user_id);
+        window.location.reload();
       })
       //   エラーが起きた場合にはコンソールに登録エラーと表示する。
       .catch((err) => console.error("認証エラー:", err));
