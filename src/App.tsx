@@ -67,11 +67,20 @@ function App() {
           {/* ログインしているユーザーがいないときのみ表示するボタン */}
           {!loginUserName && (
             <div>
-              <button onClick={() => setCurrentView("login")}>ログイン</button>{" "}
-              |{" "}
-              <button onClick={() => setCurrentView("userRegist")}>
-                新規ユーザー登録
-              </button>
+              {currentView !== "login" && (
+                <div>
+                  <button onClick={() => setCurrentView("login")}>
+                    ログイン
+                  </button>{" "}
+                </div>
+              )}
+              {currentView !== "userRegist" && (
+                <div>
+                  <button onClick={() => setCurrentView("userRegist")}>
+                    新規ユーザー登録
+                  </button>
+                </div>
+              )}
             </div>
           )}
           {/* ログインしているユーザーがいるときのみ表示するボタン */}
