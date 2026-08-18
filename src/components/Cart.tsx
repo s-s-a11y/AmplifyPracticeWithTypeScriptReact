@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 // 注文履歴に登録するための注文物テンプレート
 type Order = {
-  name: string;
+  product_name: string;
   price: number;
   amount: number;
   sum_price: number;
@@ -101,9 +101,9 @@ export const Cart = () => {
             <th>合計価格</th>
           </tr>
           {cartItem.map((order) => (
-            <tr key={order.name}>
+            <tr key={order.product_name}>
               <td>
-                <span>{order.name}</span>
+                <span>{order.product_name}</span>
               </td>
               <td>
                 <span>{order.price}円</span>
