@@ -50,13 +50,13 @@ export const Login = () => {
       })
       //   レスポンスからユーザー名とユーザーIDを取り出してセッションストレージに保存。
       .then((data) => {
-        if (!data.message) {
+        if (data.message === "login failure") {
+          alert("ログイン失敗！");
+          setLoading(false);
+        } else {
           sessionStorage.setItem("loginUserName", data.user_name);
           sessionStorage.setItem("loginUserId", data.user_id);
           window.location.reload();
-        } else {
-          alert("ログイン失敗！");
-          setLoading(false);
         }
       })
       //   エラーが起きた場合にはコンソールに登録エラーと表示する。
