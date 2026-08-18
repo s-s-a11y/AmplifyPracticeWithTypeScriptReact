@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 
 // 登録用のデータをまとめるタイプを作成
@@ -14,6 +15,9 @@ export const Login = () => {
   // アウトプット：ユーザーログイン可否
   // リンク指定：ユーザー登録ページ
 
+  //   ローディング状態を示すためのState
+  const [loading, setLoading] = useState<boolean>(false);
+
   //   React-hook-formの構成
   const {
     register, // 入力項目をRHFに「登録」するための関数
@@ -22,6 +26,7 @@ export const Login = () => {
   } = useForm<LoginFormInput>();
 
   const onSubmit: SubmitHandler<LoginFormInput> = (data) => {
+    setLoading(true);
     fetch(
       // APIGatewayでステージングしたPOSTメソッドのURLを指定
       "https://lyzfi7vcic.execute-api.ap-northeast-1.amazonaws.com/OrderProgramStage/OrderProgram/UserLogin",
@@ -93,7 +98,10 @@ export const Login = () => {
         {errors.password && (
           <p className="error_message">{errors.password.message}</p>
         )}
-        <button type="submit">ログイン</button>
+        <button type="submit">
+          {loading === true && <p>読み込み中</p>}
+          {loading === false && <p>ログイン</p>}
+        </button>
       </form>
     </div>
   );
