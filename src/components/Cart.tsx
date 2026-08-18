@@ -20,6 +20,7 @@ export const Cart = () => {
   const [cartItem, setCartItem] = useState<Order[]>([]);
   const [userId, setUserId] = useState<number>(0);
   const [userName, setUserName] = useState<string>("");
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   //   メッセージ格納用State
   const [message, setMessage] = useState<string>("");
@@ -43,6 +44,7 @@ export const Cart = () => {
     if (userName) {
       setUserName(userName);
     }
+    setTotalPrice(calcTotalPrice());
   }, []);
 
   //   カート内の合計金額を計算する処理
@@ -59,12 +61,11 @@ export const Cart = () => {
   //   APIに対してデータを投げて注文履歴を保存する処理
   const saveOrder = () => {
     const orders = cartItem;
-    const total_price = calcTotalPrice();
     const RegistOrder = {
       user_id: userId,
       user_name: userName,
       orders: orders,
-      total_price: total_price,
+      total_price: totalPrice,
     };
     fetch(
       // APIGatewayでステージングしたPOSTメソッドのURLを指定
@@ -123,6 +124,7 @@ export const Cart = () => {
           <p>{message}</p>
         </div>
       )}
+      <span>合計：{totalPrice}</span>
       <button onClick={() => saveOrder()}>購入する</button>
     </div>
   );
