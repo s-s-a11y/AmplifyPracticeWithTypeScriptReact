@@ -13,11 +13,13 @@ function App() {
   const [currentView, setCurrentView] = useState<string>("login");
   // ログインしているユーザーの名前を扱う
   const [loginUserName, setLoginUserName] = useState<string | null>(null);
+  const [loginUserRole, setLoginUserRole] = useState<string | null>(null);
 
   // 画面表示と同時にセッションストレージから情報を取得
   useEffect(() => {
     const loginUser = sessionStorage.getItem("loginUserName");
     const cartItems = sessionStorage.getItem("cart");
+    const loginRole = sessionStorage.getItem("userRole");
     // 条件分岐：ログインしているユーザー名が存在するならばホーム画面を表示
     if (loginUser != null) {
       // 条件分岐：かつカートにアイテムが入っているならばカート確認画面を表示
@@ -29,6 +31,7 @@ function App() {
     }
     // 取得したユーザー名をセッションストレージに保存。
     setLoginUserName(loginUser);
+    setLoginUserRole(loginRole);
   }, []);
 
   const navigateTo = (view: string) => {
@@ -50,6 +53,8 @@ function App() {
         return <Home />;
       case "cart":
         return <Cart onNavigate={navigateTo} />;
+      // case "history":
+      //   return <History />;
     }
   };
 
@@ -86,8 +91,19 @@ function App() {
           {/* ログインしているユーザーがいるときのみ表示するボタン */}
           {loginUserName && (
             <div>
-              <button onClick={() => setCurrentView("home")}>HOME</button> |{" "}
-              <button onClick={logout}>ログアウト</button>
+              <button onClick={() => setCurrentView("home")}>HOME</button> |
+              <button onClick={() => setCurrentView("history")}>
+                注文履歴
+              </button>
+              | <button onClick={logout}>ログアウト</button>
+              {loginUserRole == "admin" && (
+                <div>
+                  |
+                  <button onClick={() => setCurrentView("admin")}>
+                    管理者画面
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </nav>
