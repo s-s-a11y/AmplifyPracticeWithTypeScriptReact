@@ -59,8 +59,7 @@ export const Home = () => {
   const handleAddCart = (sake: Sake) => {
     // 現在入力済みのその商品の購入数を取得
     const currentAmount = amounts[sake.sakeId];
-    delete amounts[sake.sakeId];
-    setAmounts(amounts);
+
     // 既にカート内に商品が存在するかの確認　第一引数を指定することで直前情報を取得
     setCartItems((prevCart) => {
       // 名前を照合して登録済み商品の配列要素番号をカートから取得
@@ -95,6 +94,11 @@ export const Home = () => {
         ];
       }
     });
+    setAmounts((prev) => {
+      const newAmounts = { ...prev };
+      delete newAmounts[sake.sakeId]; // 対象のキーを削除
+      return newAmounts;
+    });
   };
 
   return (
@@ -123,7 +127,7 @@ export const Home = () => {
                 <input
                   type="number"
                   min={0}
-                  value={amounts[sake.sakeId]}
+                  value={amounts[sake.sakeId] ?? ""}
                   onChange={(e) =>
                     handleAmount(sake.sakeId, Number(e.target.value))
                   }
