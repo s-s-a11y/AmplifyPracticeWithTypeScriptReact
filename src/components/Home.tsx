@@ -59,6 +59,7 @@ export const Home = () => {
   const handleAddCart = (sake: Sake) => {
     // 現在入力済みのその商品の購入数を取得
     const currentAmount = amounts[sake.sakeId];
+    amounts[sake.sakeId] = 0;
     // 既にカート内に商品が存在するかの確認　第一引数を指定することで直前情報を取得
     setCartItems((prevCart) => {
       // 名前を照合して登録済み商品の配列要素番号をカートから取得
