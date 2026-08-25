@@ -10,7 +10,11 @@ type UserRegistFormInput = {
   users_address: string;
 };
 
-export const UserRegist = () => {
+type CartProps = {
+  onNavigate: (view: string) => void;
+};
+
+export const UserRegist = ({ onNavigate }: CartProps) => {
   // ECサイトにおけるユーザー登録を行う
   // API接続先：OrderAdminAPI/OrderProgram/UserRegist
   // インプットデータ：{ユーザー名、パスワード、年齢(20以上)、誕生日、住所}
@@ -42,6 +46,7 @@ export const UserRegist = () => {
       .then((res) => {
         if (res.ok) {
           alert("登録しました！");
+          onNavigate("login");
         }
       })
       //   エラーが起きた場合にはコンソールに登録エラーと表示する。

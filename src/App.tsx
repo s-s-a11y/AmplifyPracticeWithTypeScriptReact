@@ -46,7 +46,7 @@ function App() {
     // currentViewStateに伴ってSwitch文で切り替え
     switch (currentView) {
       case "userRegist":
-        return <UserRegist />;
+        return <UserRegist onNavigate={navigateTo} />;
       case "login":
         return <Login />;
       case "home":
