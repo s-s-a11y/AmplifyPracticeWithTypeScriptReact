@@ -121,7 +121,7 @@ export const Home = () => {
                 <input
                   type="number"
                   min={0}
-                  value={amounts[sake.sakeId] ?? 0}
+                  value={amounts[sake.sakeId]}
                   onChange={(e) =>
                     handleAmount(sake.sakeId, Number(e.target.value))
                   }
