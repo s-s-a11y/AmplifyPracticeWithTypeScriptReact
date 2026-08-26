@@ -5,6 +5,7 @@ import "./App.css";
 import { Login } from "./components/Login";
 import { Home } from "./components/Home";
 import { Cart } from "./components/Cart";
+import { History } from "./components/History";
 
 function App() {
   // アプリケーションのおおもとになる骨子
@@ -53,8 +54,8 @@ function App() {
         return <Home />;
       case "cart":
         return <Cart onNavigate={navigateTo} />;
-      // case "history":
-      //   return <History />;
+      case "history":
+        return <History />;
     }
   };
 
