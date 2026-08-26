@@ -27,7 +27,7 @@ export const History = () => {
   // 画面表示とともにフェッチして購入履歴を取得する。
   useEffect(() => {
     fetch(
-      "https://lyzfi7vcic.execute-api.ap-northeast-1.amazonaws.com/OrderProgramStage/OrderProgram/GetSakeList",
+      "https://lyzfi7vcic.execute-api.ap-northeast-1.amazonaws.com/OrderProgramStage/OrderProgram/CheckOrder",
     )
       .then((res) => res.json())
       .then((data) => setOrders(data));
