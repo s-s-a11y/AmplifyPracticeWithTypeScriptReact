@@ -94,12 +94,9 @@ function App() {
             <div>
               <button onClick={() => setCurrentView("home")}>HOME</button>
               {currentView != "history" && (
-                <div>
-                  |
-                  <button onClick={() => setCurrentView("history")}>
-                    注文履歴
-                  </button>
-                </div>
+                <button onClick={() => setCurrentView("history")}>
+                  注文履歴
+                </button>
               )}
               | <button onClick={logout}>ログアウト</button>
               {loginUserRole == "admin" && (
