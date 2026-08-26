@@ -24,10 +24,25 @@ export const History = () => {
 
   //   注文履歴格納用State
   const [orders, setOrders] = useState<Order[]>([]);
+
   // 画面表示とともにフェッチして購入履歴を取得する。
   useEffect(() => {
+    const loginUserName = sessionStorage.getItem("loginUserName");
+    const loginUserId = sessionStorage.getItem("loginUserId");
     fetch(
       "https://lyzfi7vcic.execute-api.ap-northeast-1.amazonaws.com/OrderProgramStage/OrderProgram/CheckOrder",
+      {
+        method: "POST",
+        // HeaderにJson形式であることを示す。
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // 入力データをJson形式の文字列に変換して送信。
+        body: JSON.stringify({
+          user_name: loginUserName,
+          user_id: loginUserId,
+        }),
+      },
     )
       .then((res) => res.json())
       .then((data) => setOrders(data));
