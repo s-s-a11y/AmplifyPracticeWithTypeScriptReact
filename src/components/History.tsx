@@ -2,15 +2,17 @@
 import { useEffect, useState } from "react";
 
 type Order = {
-  user_id: number;
-  purchase_id: number;
-  product: [
+  user_id: string;
+  purchase_id: string;
+  orders: [
     {
       product_name: string;
-      amount: number;
+      price: string;
+      amount: string;
+      sum_price: string;
     },
   ];
-  total_price: number;
+  total_price: string;
   arrival_at: string;
 };
 
@@ -47,7 +49,7 @@ export const History = () => {
               <span>{order.purchase_id}</span>
             </td>
             <td>
-              {order.product.map((pro) => (
+              {order.orders.map((pro) => (
                 <span>
                   {pro.product_name} × {pro.amount}個
                 </span>
