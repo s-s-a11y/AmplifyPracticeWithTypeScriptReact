@@ -6,6 +6,7 @@ import { Login } from "./components/Login";
 import { Home } from "./components/Home";
 import { Cart } from "./components/Cart";
 import { History } from "./components/History";
+import { Admin } from "./Admin";
 
 function App() {
   // アプリケーションのおおもとになる骨子
@@ -56,6 +57,8 @@ function App() {
         return <Cart onNavigate={navigateTo} />;
       case "history":
         return <History />;
+      case "admin":
+        return <Admin />;
     }
   };
 
@@ -99,14 +102,14 @@ function App() {
                 </button>
               )}
               | <button onClick={logout}>ログアウト</button>
-              {loginUserRole == "admin" && (
-                <div>
-                  |
-                  <button onClick={() => setCurrentView("admin")}>
-                    管理者画面
-                  </button>
-                </div>
-              )}
+              {/* {loginUserRole == "admin" && ( */}
+              <div>
+                |
+                <button onClick={() => setCurrentView("admin")}>
+                  管理者画面
+                </button>
+              </div>
+              {/* )} */}
             </div>
           )}
         </nav>
