@@ -15,13 +15,13 @@ function App() {
   const [currentView, setCurrentView] = useState<string>("login");
   // ログインしているユーザーの名前を扱う
   const [loginUserName, setLoginUserName] = useState<string | null>(null);
-  const [loginUserRole, setLoginUserRole] = useState<string | null>(null);
+  // const [loginUserRole, setLoginUserRole] = useState<string | null>(null);
 
   // 画面表示と同時にセッションストレージから情報を取得
   useEffect(() => {
     const loginUser = sessionStorage.getItem("loginUserName");
     const cartItems = sessionStorage.getItem("cart");
-    const loginRole = sessionStorage.getItem("userRole");
+    // const loginRole = sessionStorage.getItem("userRole");
     // 条件分岐：ログインしているユーザー名が存在するならばホーム画面を表示
     if (loginUser != null) {
       // 条件分岐：かつカートにアイテムが入っているならばカート確認画面を表示
@@ -33,7 +33,7 @@ function App() {
     }
     // 取得したユーザー名をセッションストレージに保存。
     setLoginUserName(loginUser);
-    setLoginUserRole(loginRole);
+    // setLoginUserRole(loginRole);
   }, []);
 
   const navigateTo = (view: string) => {
