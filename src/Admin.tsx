@@ -39,63 +39,73 @@ const INNER_CATEGORIES: Record<string, { id: string; name: string }[]> = {
   ],
 };
 
-// フォームの入力型（画面上のセレクトボックス用）
-type FormValues = {
+// 新規商品登録用 フォーム入力型
+type ProductFormValues = {
   name: string;
   price: number;
   maker: string;
   maker_address: string;
   rice_name: string;
   rice_percentage: string;
-  mainCategory: string; // 大カテゴリ (例: "01")
-  subCategory: string; // 詳細カテゴリ (例: "001")
+  mainCategory: string;
+  subCategory: string;
 };
 
-// POST送信用のデータ型
-type SakeRegistFormInput = Omit<FormValues, "mainCategory" | "subCategory"> & {
-  category_code: string; // 結合した5桁 (例: "01001")
+// POST送信用の商品データ型
+type SakeRegistFormInput = Omit<
+  ProductFormValues,
+  "mainCategory" | "subCategory"
+> & {
+  category_code: string;
 };
 
-// 日次売り上げを表示するためのタイプ
+// ★ 管理者権限付与 フォーム入力型
+type AddAdminRoleInput = {
+  user_name: string;
+};
+
+// 日次売り上げ表示型
 type sale = {
   target_date: string;
   total_sales: number;
 };
 
 export const Admin = () => {
-  // ECサイトにおける管理画面
-  // 日次売り上げ一覧表示と新規商品登録欄表示を行う。
-  // インプットデータ：{名称、価格、カテゴリーコード、他任意項目}
-  // アウトプット：登録可否メッセージ
-
-  // 日次売り上げ一覧表示用State
   const [sales, setSales] = useState<sale[]>([]);
 
-  //   React-hook-formの構成
+  // ★ 1. 商品登録用 フォームフック
   const {
-    register,
-    handleSubmit,
-    watch,
-    setValue,
-    formState: { errors },
-  } = useForm<FormValues>({
+    register: registerProduct,
+    handleSubmit: handleSubmitProduct,
+    watch: watchProduct,
+    setValue: setValueProduct,
+    formState: { errors: errorsProduct },
+  } = useForm<ProductFormValues>({
     defaultValues: {
       mainCategory: "01",
       subCategory: "001",
     },
   });
 
-  // 選択されている大カテゴリをリアルタイム監視
-  const selectedMainCategory = watch("mainCategory");
+  // ★ 2. 管理者権限付与用 フォームフック（複数フォームがあるため分離）
+  const {
+    register: registerAdmin,
+    handleSubmit: handleSubmitAdmin,
+    reset: resetAdminForm,
+    formState: { errors: errorsAdmin },
+  } = useForm<AddAdminRoleInput>();
 
-  // 大カテゴリが変更されたら、詳細カテゴリの選択値を最初の要素にリセット
+  const selectedMainCategory = watchProduct("mainCategory");
+
   useEffect(() => {
     if (selectedMainCategory && INNER_CATEGORIES[selectedMainCategory]) {
-      setValue("subCategory", INNER_CATEGORIES[selectedMainCategory][0].id);
+      setValueProduct(
+        "subCategory",
+        INNER_CATEGORIES[selectedMainCategory][0].id,
+      );
     }
-  }, [selectedMainCategory, setValue]);
+  }, [selectedMainCategory, setValueProduct]);
 
-  // 画面表示とともにフェッチ
   useEffect(() => {
     fetch(
       "https://lyzfi7vcic.execute-api.ap-northeast-1.amazonaws.com/OrderProgramStage/OrderProgram/GetDailySales",
@@ -104,11 +114,9 @@ export const Admin = () => {
       .then((data) => setSales(data));
   }, []);
 
-  // Submit処理：大・詳細を結合して category_code に整形
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  // 商品登録 Submit
+  const onProductSubmit: SubmitHandler<ProductFormValues> = (data) => {
     const { mainCategory, subCategory, ...rest } = data;
-
-    // 2つの値を結合して5桁の文字列を生成（例: "01" + "001" = "01001"）
     const postData: SakeRegistFormInput = {
       ...rest,
       category_code: `${mainCategory}${subCategory}`,
@@ -123,64 +131,90 @@ export const Admin = () => {
       },
     )
       .then((res) => {
-        if (res.ok) alert("登録しました！");
+        if (res.ok) alert("商品を登録しました！");
       })
-      .catch((err) => console.error("登録エラー:", err));
+      .catch((err) => console.error("商品登録エラー:", err));
+  };
+
+  // ★ 管理者権限付与 Submit
+  const onAdminSubmit: SubmitHandler<AddAdminRoleInput> = (data) => {
+    fetch(
+      "https://lyzfi7vcic.execute-api.ap-northeast-1.amazonaws.com/OrderProgramStage/OrderProgram/SetAdminRole",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data), // { "user_name": "入力された名前" } を送信
+      },
+    )
+      .then((res) => {
+        if (res.ok) {
+          alert(`${data.user_name} に管理者権限を付与しました！`);
+          resetAdminForm(); // フォーム入力をクリア
+        } else {
+          alert("権限の付与に失敗しました");
+        }
+      })
+      .catch((err) => console.error("管理者権限付与エラー:", err));
   };
 
   return (
     <div className="admin">
+      {/* 日次売上表示 */}
       <div className="dailysales">
         <h2>日次売り上げ一覧</h2>
         <table border={1}>
-          <tr>
-            <th>日付</th>
-            <th>合計売上</th>
-          </tr>
-          {/* 表示用に売り上げの配列を一要素ずつ扱う */}
-          {sales.map((sale) => (
-            <tr key={sale.target_date}>
-              {/* // 対象日を基準にリスト表示 */}
-              <td>
-                <span>{sale.target_date}</span>
-              </td>
-              <td>
-                <span>{sale.total_sales}円</span>
-              </td>
+          <thead>
+            <tr>
+              <th>日付</th>
+              <th>合計売上</th>
             </tr>
-          ))}
+          </thead>
+          <tbody>
+            {sales.map((sale) => (
+              <tr key={sale.target_date}>
+                <td>
+                  <span>{sale.target_date}</span>
+                </td>
+                <td>
+                  <span>{sale.total_sales}円</span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
+
+      {/* 新規商品登録 */}
       <div className="addproduct">
         <h2>新規商品登録</h2>
-        {/* 入力欄を作成。ボタン押下でhandleSubmitを起動する。 */}
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmitProduct(onProductSubmit)}>
           <label>商品名称 ※必須入力</label>
           <input
             type="text"
-            {...register("name", { required: "商品名称は必須入力です" })}
+            {...registerProduct("name", { required: "商品名称は必須入力です" })}
           />
-          {errors.name && (
-            <p className="error_message">{errors.name.message}</p>
+          {errorsProduct.name && (
+            <p className="error_message">{errorsProduct.name.message}</p>
           )}
           <br />
 
           <label>価格 ※必須入力、0以上</label>
           <input
             type="number"
-            {...register("price", {
+            {...registerProduct("price", {
               required: "価格は必須入力です",
               min: { value: 0, message: "0以上の値を入力してください" },
             })}
           />
-          {errors.price && (
-            <p className="error_message">{errors.price.message}</p>
+          {errorsProduct.price && (
+            <p className="error_message">{errorsProduct.price.message}</p>
           )}
           <br />
 
-          {/* ★ カテゴリー選択セレクトボックス (大分類) */}
           <label>カテゴリー ※必須</label>
-          <select {...register("mainCategory")}>
+          <select {...registerProduct("mainCategory")}>
             {CATEGORIES.map((cat) => (
               <option key={cat.id} value={cat.id}>
                 {cat.name}
@@ -189,9 +223,8 @@ export const Admin = () => {
           </select>
           <br />
 
-          {/* ★ カテゴリー詳細セレクトボックス (小分類) */}
           <label>カテゴリー詳細 ※必須</label>
-          <select {...register("subCategory")}>
+          <select {...registerProduct("subCategory")}>
             {INNER_CATEGORIES[selectedMainCategory]?.map((sub) => (
               <option key={sub.id} value={sub.id}>
                 {sub.name}
@@ -201,20 +234,43 @@ export const Admin = () => {
           <br />
 
           <label>製造元</label>
-          <input type="text" {...register("maker")} />
+          <input type="text" {...registerProduct("maker")} />
           <br />
           <label>製造元住所</label>
-          <input type="text" {...register("maker_address")} />
+          <input type="text" {...registerProduct("maker_address")} />
           <br />
           <label>酒米名</label>
-          <input type="text" {...register("rice_name")} />
+          <input type="text" {...registerProduct("rice_name")} />
           <br />
           <label>精米歩合</label>
-          <input type="text" {...register("rice_percentage")} />
+          <input type="text" {...registerProduct("rice_percentage")} />
           <br />
           <br />
 
           <button type="submit">登録</button>
+        </form>
+      </div>
+
+      {/* ★ 管理者権限付与フォーム */}
+      <div className="setadmin">
+        <h2>管理者権限の付与</h2>
+        <form onSubmit={handleSubmitAdmin(onAdminSubmit)}>
+          <label>ユーザー名 ※必須</label>
+          <input
+            type="text"
+            {...registerAdmin("user_name", {
+              required: "ユーザー名は必須入力です",
+              maxLength: {
+                value: 30,
+                message: "ユーザー名は30文字以内で入力してください",
+              },
+            })}
+          />
+          <br />
+          {errorsAdmin.user_name && (
+            <p className="error_message">{errorsAdmin.user_name.message}</p>
+          )}
+          <button type="submit">権限付与</button>
         </form>
       </div>
     </div>
