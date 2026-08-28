@@ -58,6 +58,7 @@ export const Login = () => {
           alert("ログイン成功！");
           sessionStorage.setItem("loginUserName", data.user_name);
           sessionStorage.setItem("loginUserId", data.user_id);
+          sessionStorage.setItem("loginUserRole", data.role);
           window.location.reload();
         }
       })
