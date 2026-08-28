@@ -21,7 +21,7 @@ function App() {
   useEffect(() => {
     const loginUser = sessionStorage.getItem("loginUserName");
     const cartItems = sessionStorage.getItem("cart");
-    const loginRole = sessionStorage.getItem("userRole");
+    const loginRole = sessionStorage.getItem("loginUserRole");
     // 条件分岐：ログインしているユーザー名が存在するならばホーム画面を表示
     if (loginUser != null) {
       // 条件分岐：かつカートにアイテムが入っているならばカート確認画面を表示
